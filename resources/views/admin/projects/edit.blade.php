@@ -20,6 +20,16 @@
         @enderror
     </div>
     <div class="mb-3">
+        <label for="client_name" class="form-label">Categorie</label>
+        <select class="form-select" name="category_id" aria-label="Default select example">
+            <option value="" selected>Selezionare una categoria</option>
+            @foreach ($categories as $category)
+                <option @if ($category->id == old('category_id', $project->category?->id)) selected @endif value="{{ $category->id }}">
+                    {{ $category->name }}</option>
+            @endforeach
+        </select>
+    </div>
+    <div class="mb-3">
         <label for="costumer" class="form-label">Title</label>
         <input class="form-control @error('client') is-invalid @enderror" type="text" id="costumer" name="client" value="{{old('client',$projects->client)}}" required>
         @error('client')

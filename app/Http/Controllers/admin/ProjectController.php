@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\Project;
+use App\Models\Category;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 
@@ -23,14 +24,20 @@ class ProjectController extends Controller
         return view('admin.projects.index', compact('projects'));
     }
 
+    public function categories_project()
+    {
+        $categories = Category::all();
+        return view('admin.projects.category_projects_list', compact('categories'));
+    }
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Project $project)
     {
-        return view('admin.projects.create');
+        $categories = Category::all();
+        return view('admin.projects.create', compact('project', 'categories'));
     }
 
     /**
@@ -69,7 +76,8 @@ class ProjectController extends Controller
      */
     public function edit(Project $projects)
     {
-        return view('admin.projects.edit',compact('projects'));
+        $categories = Category::all();
+        return view('admin.projects.edit', compact('projects', 'categories'));
     }
 
     /**
